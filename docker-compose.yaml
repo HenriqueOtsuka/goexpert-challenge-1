@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  app:
+    hostname: goexpert-challenge-1
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    working_dir: /goexpert-challenge-1
+    command: go run main.go
+    environment:
+      - FREEWEATHER_API_KEY={{FREEWEATHER_API_KEY}}
+    volumes:
+      - .:/goexpert-challenge-1
+    ports:
+      - 8080:8080

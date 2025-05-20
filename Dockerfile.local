@@ -1,0 +1,11 @@
+FROM cosmtrek/air
+
+COPY . goexpert-challenge-1
+
+WORKDIR /goexpert-challenge-1
+
+RUN go install github.com/swaggo/swag/cmd/swag@latest 
+
+COPY . .
+
+CMD ["air"]
