@@ -45,11 +45,33 @@ API em Go que retorna temperaturas (Celsius, Fahrenheit e Kelvin) para um CEP br
 **Passos**:
 ```bash
 git clone https://github.com/HenriqueOtsuka/goexpert-challenge-1
-cd seu-repo
+cd goexpert-challenge-1
 # Adicione a API Key no docker-compose.yml
-docker-compose up
+docker compose up --build
 ```
 
 Acesse:
 - App: http://localhost:8080  
 - Swagger: http://localhost:8080/swagger/index.html
+
+Como as requisições são GET, pode utilizar tanto o navegador como uma ferramenta auxiliar:
+- Postman
+- Insomnia
+- Curl
+
+Exemplo com o Curl:
+
+curl -X GET https://goexpert-challenge-1-103094552570.us-central1.run.app/cep/01452001
+
+Curiosidade interessante:
+- Antes eu estava usando 
+```
+city = strings.ReplaceAll(strings.ToLower(city), " ", "+")
+```
+
+- Mas isso dá problema com cidades que tem caracteres especiais como "São Paulo"
+
+A solução foi fazer um escape
+```
+city = url.QueryEscape(strings.ToLower(city))
+```
