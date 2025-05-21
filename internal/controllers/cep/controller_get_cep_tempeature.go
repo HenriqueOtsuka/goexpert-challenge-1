@@ -1,6 +1,7 @@
 package cep
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/HenriqueOtsuka/goexpert-challenge-1/internal/handler"
@@ -17,19 +18,22 @@ func (c *ControllerGetCepTemperature) Execute(payload interface{}) (result handl
 	cep := c.GetParam("cep")
 
 	if !utils.ValidateCEP(cep) {
+		log.Printf("invalid zipcode: %s", cep)
 		result.SetResult(http.StatusUnprocessableEntity, "invalid zipcode")
 		return
 	}
 
 	cepPayload, _ := services.ViaCepRequest(cep)
 	if cepPayload.Cep == "" {
+		log.Printf("zipcode not found: %s", cep)
 		result.SetResult(http.StatusNotFound, "zipcode not found")
 		return
 	}
 
 	weatherPayload, err := services.FreeWeatherRequest(cepPayload.Localidade)
 	if err != nil {
-		result.SetResult(http.StatusInternalServerError, "internal server error")
+		log.Printf("error getting weather data: %s", err)
+		result.SetResult(http.StatusInternalServerError, err)
 		return
 	}
 
