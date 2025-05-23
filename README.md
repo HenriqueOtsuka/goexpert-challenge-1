@@ -61,7 +61,12 @@ Como as requisições são GET, pode utilizar tanto o navegador como uma ferrame
 
 Exemplo com o Curl:
 
-curl -X GET https://goexpert-challenge-1-103094552570.us-central1.run.app/cep/01452001
+curl -i -X GET https://goexpert-challenge-1-103094552570.us-central1.run.app/cep/01452001
+
+**DETALHE, É PADRÃO DOS HTTP CLIENT NÃO EXIBIREM A MENSAGEM DE ERRO DO PAYLOAD, SÓ O STATUS DO ERRO.**
+
+**PRA EU RENDERIZAR A MENSAGEM DO ERRO, TERIA QUE RETORNAR 200**
+
 
 Curiosidade interessante:
 - Antes eu estava usando 
